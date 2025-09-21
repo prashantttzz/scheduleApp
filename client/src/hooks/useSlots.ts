@@ -28,8 +28,7 @@ export const useGetWeekSlots = (weekStart: Date) => {
       });
       return slots;
     },
-     // Keep data fresh but don't refetch excessively on window focus for a smoother scroll experience
-    staleTime: 5 * 60 * 1000, // 5 minutes
+    staleTime: 5 * 60 * 1000, 
     refetchOnWindowFocus: false,
   });
 };
@@ -46,7 +45,6 @@ export const useCreateSlot = () => {
       return res.data;
     },
     onSuccess: () => {
-      // Invalidate all slots queries to refetch data for all visible weeks
       queryClient.invalidateQueries({ queryKey: ["slots"] });
     },
   });
