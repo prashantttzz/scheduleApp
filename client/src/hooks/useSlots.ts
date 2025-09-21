@@ -2,7 +2,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import axios from "axios";
-const backend_url = "http://localhost:4000";
+const backend_url = "https://scheduleapp-6kyo.onrender.com";
 
 export interface TimeSlot {
   id: string;
