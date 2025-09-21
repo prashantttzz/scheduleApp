@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
     "target": "es2020",
-    "module": "NodeNext", // Changed from "commonjs"
-    "moduleResolution": "NodeNext", // Add this line
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
-    "outDir": "./dist" // Good practice to specify an output directory
+    "outDir": "./dist"
   }
 }

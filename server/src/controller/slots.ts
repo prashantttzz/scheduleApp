@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import db from "../db";
+import db from "../db.js";
 import { format, startOfWeek, addDays, isSameDay } from "date-fns";
-import { Slot, SlotException } from "../type";
+import { Slot, SlotException } from "../type.js";
 
 export const createSlot = async (req: Request, res: Response) => {
   try {

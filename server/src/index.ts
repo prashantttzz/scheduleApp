@@ -1,6 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
-import slotRoutes from "./routes/slots";
+import slotRoutes from "./routes/slots.js";
 import cors from "cors";
 dotenv.config();
 

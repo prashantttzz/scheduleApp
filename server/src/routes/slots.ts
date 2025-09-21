@@ -4,7 +4,7 @@ import {
   getWeekSlots, 
   updateSlotForDate, 
   deleteSlotForDate 
-} from '../controller/slots';
+} from '../controller/slots.js';
 
 const router = express.Router();
 
