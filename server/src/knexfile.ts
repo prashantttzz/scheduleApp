@@ -1,12 +1,14 @@
+import dotenv from "dotenv";
+dotenv.config();
 const config = {
   development: {
     client: 'pg',
     connection: {
-      host: 'ep-winter-glade-ads484n5-pooler.c-2.us-east-1.aws.neon.tech',
+      host: process.env.DB_HOST!,
       port: 5432,
       user: 'neondb_owner',
-      password: 'npg_Eu0dMcho9Wzr',
-      database: 'neondb',
+      password: process.env.DB_PASSWORD!,
+      database: process.env.DB_DATABASE!,
       ssl: { rejectUnauthorized: false },
     },
     migrations: { directory: '../migrations' },
@@ -14,11 +16,11 @@ const config = {
   production: {
     client: 'pg',
     connection: {
-      host: 'ep-winter-glade-ads484n5-pooler.c-2.us-east-1.aws.neon.tech',
+      host: process.env.DB_HOST!,
       port: 5432,
       user: 'neondb_owner',
-      password: 'npg_Eu0dMcho9Wzr',
-      database: 'neondb',
+      password: process.env.DB_PASSWORD!,
+      database: process.env.DB_DATABASE!,
       ssl: { rejectUnauthorized: false },
     },
     migrations: { directory: '../migrations' },
