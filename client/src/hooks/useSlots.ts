@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { toast } from "sonner";
 const backend_url = "https://scheduleapp-6kyo.onrender.com";
 
@@ -48,11 +48,12 @@ export const useCreateSlot = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["slots"] });
     },
-    onError: (error) => {
-      toast.error(error.message || "error creating slot");
+      onError: (error: AxiosError<{ error: string }>) => {
+      const errorMessage =
+        error.response?.data?.error || error.message || "Error creating slot";
+      toast.error(errorMessage);
     },
-  });
-};
+  })};
 
 export const useUpdateSlotForDate = () => {
   const queryClient = useQueryClient();
@@ -73,8 +74,10 @@ export const useUpdateSlotForDate = () => {
       toast.success("successfully updated slot");
       queryClient.invalidateQueries({ queryKey: ["slots"] });
     },
-    onError: (error) => {
-      toast.error(error.message || "failed to update slot");
+      onError: (error: AxiosError<{ error: string }>) => {
+      const errorMessage =
+        error.response?.data?.error || error.message || "Error updating slot";
+      toast.error(errorMessage);
     },
   });
 };
@@ -91,8 +94,10 @@ export const useDeleteSlotForDate = () => {
       toast.success("slot deleted successfully");
       queryClient.invalidateQueries({ queryKey: ["slots"] });
     },
-    onError: (error) => {
-      toast.error(error.message || "failed to delete slot");
+      onError: (error: AxiosError<{ error: string }>) => {
+      const errorMessage =
+        error.response?.data?.error || error.message || "Error deleting slot";
+      toast.error(errorMessage);
     },
   });
 };
