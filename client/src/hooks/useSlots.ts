@@ -2,6 +2,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import axios from "axios";
+import { toast } from "sonner";
 const backend_url = "https://scheduleapp-6kyo.onrender.com";
 
 export interface TimeSlot {
@@ -28,7 +29,7 @@ export const useGetWeekSlots = (weekStart: Date) => {
       });
       return slots;
     },
-    staleTime: 5 * 60 * 1000, 
+    staleTime: 5 * 60 * 1000,
     refetchOnWindowFocus: false,
   });
 };
@@ -46,6 +47,9 @@ export const useCreateSlot = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["slots"] });
+    },
+    onError: (error) => {
+      toast.error(error.message || "error creating slot");
     },
   });
 };
@@ -66,7 +70,11 @@ export const useUpdateSlotForDate = () => {
       });
     },
     onSuccess: () => {
+      toast.success("successfully updated slot");
       queryClient.invalidateQueries({ queryKey: ["slots"] });
+    },
+    onError: (error) => {
+      toast.error(error.message || "failed to update slot");
     },
   });
 };
@@ -74,14 +82,17 @@ export const useUpdateSlotForDate = () => {
 export const useDeleteSlotForDate = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: {
-      slotId: string;
-      date: string;
-    }) => {
-      await axios.delete(`${backend_url}/slots/${data.slotId}?date=${data.date}`);
+    mutationFn: async (data: { slotId: string; date: string }) => {
+      await axios.delete(
+        `${backend_url}/slots/${data.slotId}?date=${data.date}`
+      );
     },
     onSuccess: () => {
+      toast.success("slot deleted successfully");
       queryClient.invalidateQueries({ queryKey: ["slots"] });
+    },
+    onError: (error) => {
+      toast.error(error.message || "failed to delete slot");
     },
   });
 };
